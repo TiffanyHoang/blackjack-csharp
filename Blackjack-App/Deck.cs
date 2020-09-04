@@ -1,11 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Blackjack_App
 {
     public class Deck
     {
         public Deck()
+        {
+            Cards = CreateCards(); 
+            Shuffle();
+        }
+
+        public List<Card> Cards
+        { get;}
+
+
+        private List<Card> CreateCards()
         {
             string[] suits = { "Diamond", "Spade", "Heart", "Club" };
 
@@ -23,27 +34,28 @@ namespace Blackjack_App
 
                 }
             }
-
-            Cards = cards;
-            Shuffle(Cards);
+            return cards;
         }
 
-        public List<Card> Cards
-        { get;}
-
-
-        public void Shuffle(List<Card> list)
+        private void Shuffle()
         {
             Random shuffle = new Random();
-            int n = list.Count;
+            int n = Cards.Count;
             while (n > 1)
             {
                 n--;
                 int k = shuffle.Next(n + 1);
-                Card value = list[k];
-                list[k] = list[n];
-                list[n] = value;
+                Card value = Cards[k];
+                Cards[k] = Cards[n];
+                Cards[n] = value;
             }
+        }
+
+        public Card DealCard()
+        {
+            Card cardDealt = Cards.Last();
+            Cards.Remove(cardDealt);
+            return cardDealt;
         }
 
         
