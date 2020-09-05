@@ -17,14 +17,13 @@ namespace Blackjack_App
            
             for (int i = 0; i < initialDealtTimes; i++)
             {
-                Card card = deck.DealCard();
-                player.ReceiveCard(card);
+                Card playerCard = deck.DealCard();
+                player.ReceiveCard(playerCard);
+
+                Card dealerCard = deck.DealCard();
+                dealer.ReceiveCard(dealerCard);
             }
-            for (int i = 0; i < initialDealtTimes; i++)
-            {
-                Card card = deck.DealCard();
-                dealer.ReceiveCard(card);
-            }
+          
             Console.WriteLine($"{deck.Cards.Count}");
             
         }
