@@ -19,10 +19,10 @@ namespace Blackjack_App
             {
                 Card playerCard = deck.DealCard();
                 Console.WriteLine(playerCard);
-                player.ReceiveCard(playerCard);
+                player.AddCard(playerCard);
 
                 Card dealerCard = deck.DealCard();
-                dealer.ReceiveCard(dealerCard);
+                dealer.AddCard(dealerCard);
             }
  
         }

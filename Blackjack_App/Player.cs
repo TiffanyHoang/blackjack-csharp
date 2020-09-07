@@ -8,7 +8,7 @@ namespace Blackjack_App
 
         public List<Card> Cards{ get; } = new List<Card>();
 
-        public void ReceiveCard(Card card)
+        public void AddCard(Card card)
         {
             Cards.Add(card);
         }

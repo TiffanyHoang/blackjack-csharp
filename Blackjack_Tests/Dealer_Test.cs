@@ -11,7 +11,7 @@ namespace Blackjack_Test
         {
             Dealer dealer = new Dealer();
             Card card = new Card(Ranks.Ace, Suits.Diamond);
-            dealer.ReceiveCard(card);
+            dealer.AddCard(card);
 
             int expected = 1;
             int actual = dealer.Cards.Count;
