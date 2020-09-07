@@ -5,14 +5,12 @@ namespace Blackjack_App
 {
     public class Player
     {
-        List<Card> cards = new List<Card>();
 
-        public List<Card> Cards{ get; }
+        public List<Card> Cards{ get; } = new List<Card>();
 
         public void ReceiveCard(Card card)
         {
-            cards.Add(card);
-            Console.WriteLine(cards.Count);
+            Cards.Add(card);
         }
     }
 }

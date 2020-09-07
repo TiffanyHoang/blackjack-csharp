@@ -8,7 +8,7 @@ namespace Blackjack_App
     {
         public Deck()
         {
-            Cards = CreateCards(); 
+            Cards = CreateCards();
             Shuffle();
         }
 
@@ -18,16 +18,12 @@ namespace Blackjack_App
 
         private List<Card> CreateCards()
         {
-            string[] suits = { "Diamond", "Spade", "Heart", "Club" };
-
-            string[] ranks = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
-
             List<Card> cards = new List<Card>();
 
 
-            foreach (string suit in suits)
+            foreach (Suits suit in Enum.GetValues(typeof(Suits)))
             {
-                foreach (string rank in ranks)
+                foreach (Ranks rank in Enum.GetValues(typeof(Ranks)))
                 {
                     Card card = new Card(rank, suit);
                     cards.Add(card);
@@ -57,8 +53,6 @@ namespace Blackjack_App
             Cards.Remove(cardDealt);
             return cardDealt;
         }
-
-        
     }
 }
 
