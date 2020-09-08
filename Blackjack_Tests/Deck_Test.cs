@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using System.Collections.Generic;
 using Blackjack_App;
 
 namespace Blackjack_Test
@@ -20,15 +21,24 @@ namespace Blackjack_Test
         [Fact]
         public void ShuffleCards()
         {
-            Deck deck1 = new Deck();
-            Deck deck2 = new Deck();
+            List<Card> originalCards = Deck.CreateCards();
+            Deck shuffleCards = new Deck();
+            bool isTheSame = true;
+           
+            for (int i = 0; i < originalCards.Count; i++)
+            {
+                bool actualRank = originalCards[0].Rank == shuffleCards.Cards[0].Rank;
+                bool actualSuit = originalCards[0].Suit == shuffleCards.Cards[0].Suit;
+                isTheSame = actualRank && actualSuit;
+                if (isTheSame == false)
+                {
+                    break;
+                }
+            }
 
             bool expected= false;
-            bool actualRank = deck1.Cards[0].Rank == deck2.Cards[0].Rank;
-            bool actualSuit = deck1.Cards[0].Suit == deck2.Cards[0].Suit; 
-            bool actual = actualRank && actualSuit;
 
-            Assert.Equal(expected, actual);
+            Assert.Equal(expected, isTheSame);
         }
 
         [Fact]

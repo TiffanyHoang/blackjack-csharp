@@ -16,7 +16,7 @@ namespace Blackjack_App
         { get;}
 
 
-        private List<Card> CreateCards()
+        public static List<Card> CreateCards()
         {
             List<Card> cards = new List<Card>();
 
