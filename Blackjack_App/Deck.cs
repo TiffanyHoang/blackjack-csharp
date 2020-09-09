@@ -12,8 +12,7 @@ namespace Blackjack_App
             Shuffle();
         }
 
-        public List<Card> Cards
-        { get;}
+        private readonly List<Card> Cards = new List<Card>();
 
 
         public static List<Card> CreateCards()
@@ -49,8 +48,13 @@ namespace Blackjack_App
 
         public Card DealCard()
         {
-            Card cardDealt = Cards.Last();
-            Cards.Remove(cardDealt);
+            Card cardDealt = null;
+            if (Cards.Count > 0)
+            {
+                cardDealt = Cards.First();
+                Cards.Remove(cardDealt);
+            }
+
             return cardDealt;
         }
     }
