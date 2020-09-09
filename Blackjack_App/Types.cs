@@ -10,7 +10,7 @@ namespace Blackjack_App
     }
     public enum Ranks
     {
-        Ace,
+        Ace = 1,
         Two,
         Three,
         Four,
@@ -20,8 +20,8 @@ namespace Blackjack_App
         Eight,
         Nine,
         Ten,
-        Jack,
-        Queen,
-        King
+        Jack = 10 ,
+        Queen = 10,
+        King = 10
     }
 }

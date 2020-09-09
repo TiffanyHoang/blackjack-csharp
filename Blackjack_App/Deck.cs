@@ -55,4 +55,3 @@ namespace Blackjack_App
         }
     }
 }
-

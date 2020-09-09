@@ -17,14 +17,46 @@ namespace Blackjack_App
            
             for (int i = 0; i < initialDealtTimes; i++)
             {
-                Card playerCard = deck.DealCard();
-                Console.WriteLine(playerCard);
-                player.AddCard(playerCard);
+                player.AddCard(deck.DealCard());
 
-                Card dealerCard = deck.DealCard();
-                dealer.AddCard(dealerCard);
+                dealer.AddCard(deck.DealCard());
             }
- 
+
+            int playerScore = player.ShowScore();
+
+            Console.WriteLine("You are currently at: {0}", playerScore);
+
+            player.ShowCards();
+
+            while (playerScore < 21)
+            {
+                Console.WriteLine("Do you want to hit or stay? Press h to hit or other key to stay");
+
+                string playerAction = Console.ReadLine();
+
+                if (playerAction == "h")
+                {
+                    player.AddCard(deck.DealCard());
+
+                    playerScore = player.ShowScore();
+
+                    Console.WriteLine("You are currently at: {0}", playerScore);
+
+                    player.ShowCards();
+                }
+
+                if (playerAction != "h")
+                {
+                    Console.WriteLine("You choose to stay");
+                    break;
+                }
+
+            }
+            if (playerScore > 21)
+            {
+                Console.WriteLine("You are at bust. Dealer wins!");
+            }
+
         }
     }
 }
