@@ -52,11 +52,48 @@ namespace Blackjack_App
                 }
 
             }
+
             if (playerScore > 21)
             {
                 Console.WriteLine("You are at bust. Dealer wins!");
+                return;
             }
 
+            int dealerScore = dealer.ShowScore();
+
+            Console.WriteLine("Dealer is currently at: {0}", dealerScore);
+
+            dealer.ShowCards();
+
+            while (dealerScore <= 17)
+            {
+                dealer.AddCard(deck.DealCard());
+                dealerScore = dealer.ShowScore();
+                Console.WriteLine("Dealer is currently at: {0}", dealerScore);
+                dealer.ShowCards();
+            }
+            if (dealerScore > 21)
+            {
+                Console.WriteLine("Dealer are at bust. Player wins!");
+                return;
+            }
+
+            if (playerScore == 21 && dealerScore == 21 && player.Cards.Count == 2 && dealer.Cards.Count == 2)
+            {
+                Console.WriteLine("The game is a tie!");
+            }
+
+            if (playerScore <= dealerScore)
+            {
+                Console.WriteLine("playerScore:{0}",playerScore);
+                Console.WriteLine("dealerScore:{0}", dealerScore);
+
+                Console.WriteLine("Dealer wins!");
+            }
+            else
+            {
+                Console.WriteLine("You Wins!");
+            }
         }
     }
 }
