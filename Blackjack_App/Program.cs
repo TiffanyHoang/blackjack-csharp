@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Blackjack_App
 {
     class Program 
     {
-       
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Blackjack Engine!");
@@ -22,13 +23,14 @@ namespace Blackjack_App
                 dealer.AddCard(deck.DealCard());
             }
 
-            int playerScore = player.ShowScore();
+            player.SetScore(Calculators.BlackjackCalculator(player.Cards));
+            player.GetScore();
 
-            Console.WriteLine("You are currently at: {0}", playerScore);
+            Console.WriteLine("You are currently at: {0}", player.GetScore());
 
             player.ShowCards();
 
-            while (playerScore < 21)
+            while (player.GetScore() < 21)
             {
                 Console.WriteLine("Do you want to hit or stay? Press h to hit or other key to stay");
 
@@ -38,9 +40,9 @@ namespace Blackjack_App
                 {
                     player.AddCard(deck.DealCard());
 
-                    playerScore = player.ShowScore();
+                    player.SetScore(Calculators.BlackjackCalculator(player.Cards));
 
-                    Console.WriteLine("You are currently at: {0}", playerScore);
+                    Console.WriteLine("You are currently at: {0}", player.GetScore());
 
                     player.ShowCards();
                 }
@@ -53,7 +55,7 @@ namespace Blackjack_App
 
             }
 
-            if (playerScore > 21)
+            if (player.GetScore() > 21)
             {
                 Console.WriteLine("You are at bust. Dealer wins!");
                 return;
@@ -78,14 +80,14 @@ namespace Blackjack_App
                 return;
             }
 
-            if (playerScore == 21 && dealerScore == 21 && player.Cards.Count == 2 && dealer.Cards.Count == 2)
+            if (player.GetScore() == 21 && dealerScore == 21 && player.Cards.Count == 2 && dealer.Cards.Count == 2)
             {
                 Console.WriteLine("The game is a tie!");
             }
 
-            if (playerScore <= dealerScore)
+            if (player.GetScore() <= dealerScore)
             {
-                Console.WriteLine("playerScore:{0}",playerScore);
+                Console.WriteLine("playerScore:{0}", player.GetScore());
                 Console.WriteLine("dealerScore:{0}", dealerScore);
 
                 Console.WriteLine("Dealer wins!");

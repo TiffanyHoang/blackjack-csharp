@@ -27,30 +27,8 @@ namespace Blackjack_Test
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void ShuffleCards()
-        {
-            List<Card> originalDeck = Deck.CreateCards();
-            Deck shuffleDeck = new Deck();
+        // Test if each of 52 cards is unique card. 
 
-            bool isTheSame = true;
-
-            for (int i = 0; i < originalDeck.Count; i++)
-            {
-                Card shuffleCard = shuffleDeck.DealCard();
-                bool actualRank = originalDeck[0].Rank == shuffleCard.Rank;
-                bool actualSuit = originalDeck[0].Suit == shuffleCard.Suit;
-                isTheSame = actualRank && actualSuit;
-                if (isTheSame == false)
-                {
-                    break;
-                }
-            }
-
-            bool expected = false;
-
-            Assert.Equal(expected, isTheSame);
-        }
 
         [Fact]
         public void Deal1Card_RetrunNumberOfRemainCards()

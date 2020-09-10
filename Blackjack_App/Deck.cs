@@ -6,16 +6,27 @@ namespace Blackjack_App
 {
     public class Deck
     {
+        private readonly List<Card> Cards = new List<Card>();
+
         public Deck()
         {
             Cards = CreateCards();
             Shuffle();
         }
 
-        private readonly List<Card> Cards = new List<Card>();
+        public Card DealCard()
+        {
+            Card cardDealt = null;
+            if (Cards.Count > 0)
+            {
+                cardDealt = Cards.First();
+                Cards.Remove(cardDealt);
+            }
 
+            return cardDealt;
+        }
 
-        public static List<Card> CreateCards()
+        private List<Card> CreateCards()
         {
             List<Card> cards = new List<Card>();
 
@@ -44,18 +55,6 @@ namespace Blackjack_App
                 Cards[k] = Cards[n];
                 Cards[n] = value;
             }
-        }
-
-        public Card DealCard()
-        {
-            Card cardDealt = null;
-            if (Cards.Count > 0)
-            {
-                cardDealt = Cards.First();
-                Cards.Remove(cardDealt);
-            }
-
-            return cardDealt;
         }
     }
 }
