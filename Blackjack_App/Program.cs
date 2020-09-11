@@ -61,34 +61,36 @@ namespace Blackjack_App
                 return;
             }
 
-            int dealerScore = dealer.ShowScore();
+            dealer.SetScore(Calculators.BlackjackCalculator(dealer.Cards));
+            dealer.GetScore();
 
-            Console.WriteLine("Dealer is currently at: {0}", dealerScore);
+     
+            Console.WriteLine("Dealer is currently at: {0}", dealer.GetScore());
 
             dealer.ShowCards();
 
-            while (dealerScore <= 17)
+            while (dealer.GetScore() <= 17)
             {
                 dealer.AddCard(deck.DealCard());
-                dealerScore = dealer.ShowScore();
-                Console.WriteLine("Dealer is currently at: {0}", dealerScore);
+                dealer.SetScore(Calculators.BlackjackCalculator(dealer.Cards)); 
+                Console.WriteLine("Dealer is currently at: {0}", dealer.GetScore());
                 dealer.ShowCards();
             }
-            if (dealerScore > 21)
+            if (dealer.GetScore() > 21)
             {
                 Console.WriteLine("Dealer are at bust. Player wins!");
                 return;
             }
 
-            if (player.GetScore() == 21 && dealerScore == 21 && player.Cards.Count == 2 && dealer.Cards.Count == 2)
+            if (player.GetScore() == 21 && dealer.GetScore() == 21 && player.Cards.Count == 2 && dealer.Cards.Count == 2)
             {
                 Console.WriteLine("The game is a tie!");
             }
 
-            if (player.GetScore() <= dealerScore)
+            if (player.GetScore() <= dealer.GetScore())
             {
                 Console.WriteLine("playerScore:{0}", player.GetScore());
-                Console.WriteLine("dealerScore:{0}", dealerScore);
+                Console.WriteLine("dealerScore:{0}", dealer.GetScore());
 
                 Console.WriteLine("Dealer wins!");
             }

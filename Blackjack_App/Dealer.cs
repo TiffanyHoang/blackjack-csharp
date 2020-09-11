@@ -8,36 +8,21 @@ namespace Blackjack_App
     {
         public List<Card> Cards { get; } = new List<Card>();
 
+        int DealerScore { get; set; }
+
         public void AddCard(Card card)
         {
             Cards.Add(card);
         }
 
-        public int ShowScore()
+        public void SetScore(int score)
         {
-            Card firstAce = Cards.Find(a => a.Rank == Ranks.Ace);
+            DealerScore = score;
+        }
 
-            var restOfCards = Cards.FindAll(r => r != firstAce).Select(card => (int)card.Rank);
-
-            int restOfCardsScore = restOfCards.Sum();
-
-            int firstAceScore;
-
-            if (firstAce == null)
-            {
-                return restOfCardsScore;
-            }
-
-            if (restOfCardsScore <= 10)
-            {
-                firstAceScore = 11;
-            }
-            else
-            {
-                firstAceScore = 1;
-            }
-
-            return restOfCardsScore + firstAceScore;
+        public int GetScore()
+        {
+            return DealerScore;
         }
 
         public void ShowCards()

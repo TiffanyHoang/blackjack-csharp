@@ -27,9 +27,6 @@ namespace Blackjack_Test
             Assert.Equal(expected, actual);
         }
 
-        // Test if each of 52 cards is unique card. 
-
-
         [Fact]
         public void Deal1Card_RetrunNumberOfRemainCards()
         {
