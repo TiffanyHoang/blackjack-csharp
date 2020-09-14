@@ -11,8 +11,9 @@ namespace Blackjack_App
             Console.WriteLine("Welcome to Blackjack Engine!");
 
             Deck deck = new Deck();
-            Player player = new Player();
-            Dealer dealer = new Dealer();
+            Person player = new Person("Player");
+            Person dealer = new Person("Dealer");
+            Person playerMachine = new Person("Machine");
 
             int initialDealtTimes = 2;
            
@@ -20,16 +21,48 @@ namespace Blackjack_App
             {
                 player.AddCard(deck.DealCard());
 
+                playerMachine.AddCard(deck.DealCard());
+
                 dealer.AddCard(deck.DealCard());
             }
 
-            player.SetScore(Calculators.BlackjackCalculator(player.Cards));
-            player.GetScore();
 
-            Console.WriteLine("You are currently at: {0}", player.GetScore());
+            StartPlay(player);
+            PlayHumanRound(player, deck);
 
-            player.ShowCards();
+            if (player.GetScore() > 21)
+            {
+                Console.WriteLine("You are at bust. Machine turns!");
+                
+            }
 
+            StartPlay(playerMachine);
+            PlayMachineRound(playerMachine, deck);
+
+            if (playerMachine.GetScore() > 21)
+            {
+                Console.WriteLine("Machine is at bust. Dealer wins!");
+                return;
+            }
+
+            StartPlay(dealer);
+            PlayMachineRound(dealer, deck);
+
+            if (dealer.GetScore() > 21)
+            {
+                Console.WriteLine("Dealer is at bust. See the score!");
+                return;
+            }
+
+            if (player.GetScore() <= 21 && dealer.GetScore() <= 21 && playerMachine.GetScore() <= 21)
+            {
+                Scoring.Score(player, playerMachine, dealer);
+            }
+
+        }
+
+        static void PlayHumanRound(Person player, Deck deck)
+        {
             while (player.GetScore() < 21)
             {
                 Console.WriteLine("Do you want to hit or stay? Press h to hit or other key to stay");
@@ -38,13 +71,7 @@ namespace Blackjack_App
 
                 if (playerAction == "h")
                 {
-                    player.AddCard(deck.DealCard());
-
-                    player.SetScore(Calculators.BlackjackCalculator(player.Cards));
-
-                    Console.WriteLine("You are currently at: {0}", player.GetScore());
-
-                    player.ShowCards();
+                    PlayTurn(player, deck);
                 }
 
                 if (playerAction != "h")
@@ -52,52 +79,37 @@ namespace Blackjack_App
                     Console.WriteLine("You choose to stay");
                     break;
                 }
-
             }
+        }
 
-            if (player.GetScore() > 21)
+        static void PlayMachineRound(Person person, Deck deck)
+        {
+            while (person.GetScore() <= 17)
             {
-                Console.WriteLine("You are at bust. Dealer wins!");
-                return;
+                PlayTurn(person, deck);
             }
 
-            dealer.SetScore(Calculators.BlackjackCalculator(dealer.Cards));
-            dealer.GetScore();
+        }
 
-     
-            Console.WriteLine("Dealer is currently at: {0}", dealer.GetScore());
+        static void PlayTurn(Person person, Deck deck)
+        {
+            person.AddCard(deck.DealCard());
 
-            dealer.ShowCards();
+            person.SetScore(Calculators.BlackjackCalculator(person.Cards));
 
-            while (dealer.GetScore() <= 17)
-            {
-                dealer.AddCard(deck.DealCard());
-                dealer.SetScore(Calculators.BlackjackCalculator(dealer.Cards)); 
-                Console.WriteLine("Dealer is currently at: {0}", dealer.GetScore());
-                dealer.ShowCards();
-            }
-            if (dealer.GetScore() > 21)
-            {
-                Console.WriteLine("Dealer are at bust. Player wins!");
-                return;
-            }
+            Console.WriteLine("{0} is currently at: {1}", person.PersonType, person.GetScore());
 
-            if (player.GetScore() == 21 && dealer.GetScore() == 21 && player.Cards.Count == 2 && dealer.Cards.Count == 2)
-            {
-                Console.WriteLine("The game is a tie!");
-            }
+            person.ShowCards();
+        }
 
-            if (player.GetScore() <= dealer.GetScore())
-            {
-                Console.WriteLine("playerScore:{0}", player.GetScore());
-                Console.WriteLine("dealerScore:{0}", dealer.GetScore());
+        static void StartPlay(Person person)
+        {
+            person.SetScore(Calculators.BlackjackCalculator(person.Cards));
+            person.GetScore();
 
-                Console.WriteLine("Dealer wins!");
-            }
-            else
-            {
-                Console.WriteLine("You Wins!");
-            }
+            Console.WriteLine("{0} is currently at: {1}", person.PersonType , person.GetScore());
+
+            person.ShowCards();
         }
     }
 }

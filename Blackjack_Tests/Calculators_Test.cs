@@ -20,7 +20,7 @@ namespace Blackjack_Test
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void GiveAListOfCards_ReturnBlackjackGameScore(List<Card> cardList, int expected)
+        public void GivenAListOfCards_ReturnBlackjackGameScore(List<Card> cardList, int expected)
         {
             int actual = Calculators.BlackjackCalculator(cardList);
 
