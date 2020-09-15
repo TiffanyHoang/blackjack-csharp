@@ -8,7 +8,6 @@ namespace Blackjack_App
     {
         static void Main(string[] args)
         {
-
             Results gameResult = new BlackjackMachine().GetGameResult();
 
             while (gameResult == Results.Lose || gameResult == Results.Tie)

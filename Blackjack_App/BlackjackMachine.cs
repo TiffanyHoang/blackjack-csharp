@@ -3,14 +3,14 @@ namespace Blackjack_App
 {
     public class BlackjackMachine
     {
-        public Results GameResult { get; set; }
+        private Results GameResult { get; set; }
 
         public Results GetGameResult()
         {
             return GameResult;
         }
 
-        public void SetGameResult(Results result)
+        private void SetGameResult(Results result)
         {
             GameResult = result;
         }
@@ -48,7 +48,7 @@ namespace Blackjack_App
             SetGameResult(GameResults.ReturnResult(player.Cards, playerMachine.Cards, dealer.Cards));
         }
 
-        static void PlayHumanRound(Person player, Deck deck)
+         private void PlayHumanRound(Person player, Deck deck)
         {
             while (player.GetScore() < 21)
             {
@@ -69,7 +69,7 @@ namespace Blackjack_App
             }
         }
 
-        static void PlayMachineRound(Person person, Deck deck)
+        private void PlayMachineRound(Person person, Deck deck)
         {
             while (person.GetScore() <= 17)
             {
@@ -77,7 +77,7 @@ namespace Blackjack_App
             }
         }
 
-        static void PlayTurn(Person person, Deck deck)
+        private void PlayTurn(Person person, Deck deck)
         {
             person.AddCard(deck.DealCard());
 
@@ -88,7 +88,7 @@ namespace Blackjack_App
             person.ShowCards();
         }
 
-        static void InitialStart(Person person)
+        private void InitialStart(Person person)
         {
             person.SetScore(Calculators.BlackjackCalculator(person.Cards));
             person.GetScore();
@@ -98,7 +98,7 @@ namespace Blackjack_App
             person.ShowCards();
         }
 
-        static void ShowFinalScore(Person player, Person playerMachine, Person dealer)
+        private void ShowFinalScore(Person player, Person playerMachine, Person dealer)
         {
             Console.WriteLine("PlayerScore:{0}", player.GetScore());
             Console.WriteLine("MachineScore:{0}", playerMachine.GetScore());
