@@ -26,38 +26,17 @@ namespace Blackjack_App
                 dealer.AddCard(deck.DealCard());
             }
 
-
-            StartPlay(player);
+            InitialStart(player);
             PlayHumanRound(player, deck);
 
-            if (player.GetScore() > 21)
-            {
-                Console.WriteLine("You are at bust. Machine turns!");
-                
-            }
-
-            StartPlay(playerMachine);
+            InitialStart(playerMachine);
             PlayMachineRound(playerMachine, deck);
 
-            if (playerMachine.GetScore() > 21)
-            {
-                Console.WriteLine("Machine is at bust. Dealer wins!");
-                return;
-            }
-
-            StartPlay(dealer);
+            InitialStart(dealer);
             PlayMachineRound(dealer, deck);
 
-            if (dealer.GetScore() > 21)
-            {
-                Console.WriteLine("Dealer is at bust. See the score!");
-                return;
-            }
-
-            if (player.GetScore() <= 21 && dealer.GetScore() <= 21 && playerMachine.GetScore() <= 21)
-            {
-                Scoring.Score(player, playerMachine, dealer);
-            }
+            ShowFinalScore(player, playerMachine, dealer);
+            Scoring.ReturnResult(player.Cards, playerMachine.Cards, dealer.Cards);
 
         }
 
@@ -88,7 +67,6 @@ namespace Blackjack_App
             {
                 PlayTurn(person, deck);
             }
-
         }
 
         static void PlayTurn(Person person, Deck deck)
@@ -102,7 +80,7 @@ namespace Blackjack_App
             person.ShowCards();
         }
 
-        static void StartPlay(Person person)
+        static void InitialStart(Person person)
         {
             person.SetScore(Calculators.BlackjackCalculator(person.Cards));
             person.GetScore();
@@ -110,6 +88,13 @@ namespace Blackjack_App
             Console.WriteLine("{0} is currently at: {1}", person.PersonType , person.GetScore());
 
             person.ShowCards();
+        }
+
+        static void ShowFinalScore(Person player, Person playerMachine, Person dealer)
+        {
+            Console.WriteLine("PlayerScore:{0}", player.GetScore());
+            Console.WriteLine("MachineScore:{0}", playerMachine.GetScore());
+            Console.WriteLine("DealerScore:{0}", dealer.GetScore());
         }
     }
 }

@@ -24,4 +24,11 @@ namespace Blackjack_App
         Queen = 10,
         King = 10
     }
+
+    public enum Scores
+    {
+        Win,
+        Loose,
+        Tie
+    }
 }

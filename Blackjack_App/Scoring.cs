@@ -4,54 +4,54 @@ namespace Blackjack_App
 {
     public class Scoring
     {
-        public static List<Person> Score(Person player, Person playerMachine, Person dealer)
+        public static Scores ReturnResult(List<Card> playerCards, List<Card> playerMachineCards, List<Card> dealerCards)
         {
-            if (player.GetScore() == 21 && dealer.GetScore() == 21 && playerMachine.GetScore() == 21 && player.Cards.Count == 2 && dealer.Cards.Count == 2 && playerMachine.Cards.Count == 2)
+            int playerScore = Calculators.BlackjackCalculator(playerCards);
+            int playerMachineScore = Calculators.BlackjackCalculator(playerMachineCards);
+            int dealerScore = Calculators.BlackjackCalculator(dealerCards);
+
+            if (playerScore > 21)
             {
-                Console.WriteLine("The game is a tie!");
-                List<Person> winnerList = new List<Person> { player, playerMachine, dealer };
-                return winnerList;
-            } else if (player.GetScore() == playerMachine.GetScore())
-            {
-                Console.WriteLine("The game is a tie!");
-                List<Person> winnerList = new List<Person> { player, playerMachine };
-                return winnerList;
-            } else if (dealer.GetScore() == playerMachine.GetScore())
-            {
-                Console.WriteLine("The game is a tie!");
-                List<Person> winnerList = new List<Person> { dealer, playerMachine };
-                return winnerList;
+                Console.WriteLine("Player looses");
+                return Scores.Loose;
             }
-            else if (player.GetScore() <= dealer.GetScore() && playerMachine.GetScore() <= dealer.GetScore())
-            {
-                ShowFinalScore(player, playerMachine, dealer);
 
-                Console.WriteLine("Dealer wins!");
-                List<Person> winnerList = new List<Person> { dealer };
-                return winnerList;
-            } else if (playerMachine.GetScore() > dealer.GetScore() && playerMachine.GetScore() > player.GetScore())
+            if (dealerScore > 21 && playerMachineScore > 21)
             {
-                ShowFinalScore(player, playerMachine, dealer);
-
-                Console.WriteLine("Machine Wins!");
-                List<Person> winnerList = new List<Person> { playerMachine };
-                return winnerList;
-            } else 
+                Console.WriteLine("Player win");
+                return Scores.Win;
+            }
+          
+            if (playerScore > dealerScore && playerScore > playerMachineScore)
             {
-                ShowFinalScore(player, playerMachine, dealer);
+                Console.WriteLine("Player win");
+                return Scores.Win;
+            }
 
-                Console.WriteLine("You Wins!");
-                List<Person> winnerList = new List<Person> { player };
-                return winnerList;
-            } 
+            if ((playerScore < dealerScore && dealerScore <= 21) || (playerScore < playerMachineScore && playerMachineScore <= 21))
+            {
+                Console.WriteLine("Player looses");
+                return Scores.Loose;
+            }
+
+            if ((playerScore == dealerScore && playerMachineScore > 21) || (playerScore == playerMachineScore && dealerScore  > 21))
+            {
+                Console.WriteLine("Game is a tie");
+                return Scores.Tie;
+            }
+
+            if ((playerScore == dealerScore && dealerScore == 21 && dealerCards.Count == 2 && playerCards.Count == 2) || (playerScore == playerMachineScore && playerMachineScore == 21 && playerMachineCards.Count == 2 && playerCards.Count == 2))
+            {
+                Console.WriteLine("Game is a tie");
+                return Scores.Tie;
+            }
+            else
+            {
+                Console.WriteLine("Player win");
+                return Scores.Win;
+            }
 
         }
 
-       static void ShowFinalScore(Person player, Person playerMachine, Person dealer)
-        {
-            Console.WriteLine("PlayerScore:{0}", player.GetScore());
-            Console.WriteLine("MachineScore:{0}", playerMachine.GetScore());
-            Console.WriteLine("DealerScore:{0}", dealer.GetScore());
-        }
     }
 }
