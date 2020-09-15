@@ -11,7 +11,7 @@ namespace Blackjack_App
 
             Results gameResult = new BlackjackMachine().GetGameResult();
 
-            while (gameResult == Results.Loose || gameResult == Results.Tie)
+            while (gameResult == Results.Lose || gameResult == Results.Tie)
             {
                 Console.WriteLine("Do you want to try again? Press y to play again or other key to exit.");
 

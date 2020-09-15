@@ -9,28 +9,28 @@ namespace Blackjack_Test
     {
 
         [Fact]
-        public void GivenPlayer22Machine18Dealer19_ReturnLoose()
+        public void GivenPlayer22Machine18Dealer19_ReturnLose()
         {
             List<Card> playerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Three, Suits.Diamond) };
             List<Card> playerMachineCards = new List<Card> { new Card(Ranks.Eight, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
 
 
-            Results expected = Results.Loose;
+            Results expected = Results.Lose;
             Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void GivenPlayer23Machine22Dealer22_ReturnLoose()
+        public void GivenPlayer23Machine22Dealer22_ReturnLose()
         {
             List<Card> playerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Four, Suits.Diamond) };
             List<Card> playerMachineCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Three, Suits.Diamond) };
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Three, Suits.Diamond) };
 
 
-            Results expected = Results.Loose;
+            Results expected = Results.Lose;
             Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
@@ -66,28 +66,28 @@ namespace Blackjack_Test
         }
 
         [Fact]
-        public void GivenPlayer20Machine21Dealer19_ReturnLoose()
+        public void GivenPlayer20Machine21Dealer19_ReturnLose()
         {
             List<Card> playerCards = new List<Card> { new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
             List<Card> playerMachineCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Two, Suits.Diamond) };
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
 
 
-            Results expected = Results.Loose;
+            Results expected = Results.Lose;
             Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void GivenPlayer20Machine19Dealer21_ReturnLoose()
+        public void GivenPlayer20Machine19Dealer21_ReturnLose()
         {
             List<Card> playerCards = new List<Card> { new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
             List<Card> playerMachineCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Two, Suits.Diamond) };
 
 
-            Results expected = Results.Loose;
+            Results expected = Results.Lose;
             Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);

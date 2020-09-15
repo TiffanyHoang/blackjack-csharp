@@ -28,7 +28,7 @@ namespace Blackjack_App
     public enum Results
     {
         Win,
-        Loose,
+        Lose,
         Tie
     }
 }

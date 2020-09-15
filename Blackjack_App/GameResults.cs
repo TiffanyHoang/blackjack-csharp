@@ -12,8 +12,8 @@ namespace Blackjack_App
 
             if (playerScore > 21)
             {
-                Console.WriteLine("Player looses");
-                return Results.Loose;
+                Console.WriteLine("Player loses");
+                return Results.Lose;
             }
 
             if (dealerScore > 21 && playerMachineScore > 21)
@@ -30,8 +30,8 @@ namespace Blackjack_App
 
             if ((playerScore < dealerScore && dealerScore <= 21) || (playerScore < playerMachineScore && playerMachineScore <= 21))
             {
-                Console.WriteLine("Player looses");
-                return Results.Loose;
+                Console.WriteLine("Player loses");
+                return Results.Lose;
             }
 
             if ((playerScore == dealerScore && playerMachineScore > 21) || (playerScore == playerMachineScore && dealerScore  > 21))
