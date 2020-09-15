@@ -5,7 +5,7 @@ using Blackjack_App;
 
 namespace Blackjack_Test
 {
-    public class Scoring_Test
+    public class GameResults_Test
     {
 
         [Fact]
@@ -16,8 +16,8 @@ namespace Blackjack_Test
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
 
 
-            Scores expected = Scores.Loose;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Loose;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -30,8 +30,8 @@ namespace Blackjack_Test
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Three, Suits.Diamond) };
 
 
-            Scores expected = Scores.Loose;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Loose;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -45,8 +45,8 @@ namespace Blackjack_Test
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Three, Suits.Diamond) };
 
 
-            Scores expected = Scores.Win;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Win;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -59,8 +59,8 @@ namespace Blackjack_Test
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Eight, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
 
 
-            Scores expected = Scores.Win;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Win;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -73,8 +73,8 @@ namespace Blackjack_Test
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
 
 
-            Scores expected = Scores.Loose;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Loose;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -84,11 +84,11 @@ namespace Blackjack_Test
         {
             List<Card> playerCards = new List<Card> { new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
             List<Card> playerMachineCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
-            List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Two, Suits.Diamond) }; 
+            List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Two, Suits.Diamond) };
 
 
-            Scores expected = Scores.Loose;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Loose;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -101,8 +101,8 @@ namespace Blackjack_Test
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Ace, Suits.Diamond) };
 
 
-            Scores expected = Scores.Tie;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Tie;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -115,8 +115,8 @@ namespace Blackjack_Test
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Three, Suits.Diamond) };
 
 
-            Scores expected = Scores.Tie;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Tie;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -129,8 +129,8 @@ namespace Blackjack_Test
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Three, Suits.Diamond) };
 
 
-            Scores expected = Scores.Tie;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Tie;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -143,8 +143,8 @@ namespace Blackjack_Test
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Two, Suits.Diamond) };
 
 
-            Scores expected = Scores.Tie;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Tie;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -156,10 +156,10 @@ namespace Blackjack_Test
 
             List<Card> playerMachineCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Two, Suits.Diamond) };
 
-            List<Card> dealerCards = new List<Card> { new Card(Ranks.Ace, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) }; 
+            List<Card> dealerCards = new List<Card> { new Card(Ranks.Ace, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond) };
 
-            Scores expected = Scores.Tie;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Tie;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }
@@ -173,8 +173,8 @@ namespace Blackjack_Test
 
             List<Card> dealerCards = new List<Card> { new Card(Ranks.Nine, Suits.Diamond), new Card(Ranks.Ten, Suits.Diamond), new Card(Ranks.Two, Suits.Diamond) };
 
-            Scores expected = Scores.Win;
-            Scores actual = Scoring.ReturnResult(playerCards, playerMachineCards, dealerCards);
+            Results expected = Results.Win;
+            Results actual = GameResults.ReturnResult(playerCards, playerMachineCards, dealerCards);
 
             Assert.Equal(expected, actual);
         }

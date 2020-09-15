@@ -8,95 +8,26 @@ namespace Blackjack_App
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Blackjack Engine!");
 
-            Deck deck = new Deck();
-            Person player = new Person("Player");
-            Person dealer = new Person("Dealer");
-            Person playerMachine = new Person("Machine");
+            Results gameResult = new BlackjackMachine().GetGameResult();
 
-            int initialDealtTimes = 2;
-           
-            for (int i = 0; i < initialDealtTimes; i++)
+            while (gameResult == Results.Loose || gameResult == Results.Tie)
             {
-                player.AddCard(deck.DealCard());
+                Console.WriteLine("Do you want to try again? Press y to play again or other key to exit.");
 
-                playerMachine.AddCard(deck.DealCard());
+                string playerDecision = Console.ReadLine();
 
-                dealer.AddCard(deck.DealCard());
-            }
-
-            InitialStart(player);
-            PlayHumanRound(player, deck);
-
-            InitialStart(playerMachine);
-            PlayMachineRound(playerMachine, deck);
-
-            InitialStart(dealer);
-            PlayMachineRound(dealer, deck);
-
-            ShowFinalScore(player, playerMachine, dealer);
-            Scoring.ReturnResult(player.Cards, playerMachine.Cards, dealer.Cards);
-
-        }
-
-        static void PlayHumanRound(Person player, Deck deck)
-        {
-            while (player.GetScore() < 21)
-            {
-                Console.WriteLine("Do you want to hit or stay? Press h to hit or other key to stay");
-
-                string playerAction = Console.ReadLine();
-
-                if (playerAction == "h")
+                if (playerDecision == "y")
                 {
-                    PlayTurn(player, deck);
+                    gameResult = new BlackjackMachine().GetGameResult();
                 }
-
-                if (playerAction != "h")
+                if (playerDecision != "y")
                 {
-                    Console.WriteLine("You choose to stay");
+                    Console.WriteLine("Thank you! See you next time!");
                     break;
                 }
+
             }
-        }
-
-        static void PlayMachineRound(Person person, Deck deck)
-        {
-            while (person.GetScore() <= 17)
-            {
-                PlayTurn(person, deck);
-            }
-        }
-
-        static void PlayTurn(Person person, Deck deck)
-        {
-            person.AddCard(deck.DealCard());
-
-            person.SetScore(Calculators.BlackjackCalculator(person.Cards));
-
-            Console.WriteLine("{0} is currently at: {1}", person.PersonType, person.GetScore());
-
-            person.ShowCards();
-        }
-
-        static void InitialStart(Person person)
-        {
-            person.SetScore(Calculators.BlackjackCalculator(person.Cards));
-            person.GetScore();
-
-            Console.WriteLine("{0} is currently at: {1}", person.PersonType , person.GetScore());
-
-            person.ShowCards();
-        }
-
-        static void ShowFinalScore(Person player, Person playerMachine, Person dealer)
-        {
-            Console.WriteLine("PlayerScore:{0}", player.GetScore());
-            Console.WriteLine("MachineScore:{0}", playerMachine.GetScore());
-            Console.WriteLine("DealerScore:{0}", dealer.GetScore());
         }
     }
 }
-
-

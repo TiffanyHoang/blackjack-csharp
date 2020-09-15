@@ -25,7 +25,7 @@ namespace Blackjack_App
         King = 10
     }
 
-    public enum Scores
+    public enum Results
     {
         Win,
         Loose,

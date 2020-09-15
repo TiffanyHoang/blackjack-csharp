@@ -11,26 +11,27 @@ namespace Blackjack_App
 
         public string PersonType { get; }
 
+        int PlayerScore { get; set; }
+
         public Person(string personType)
         {
             PersonType = personType;
         }
 
-        int PlayerScore { get; set; }
 
         public void AddCard(Card card)
         {
             Cards.Add(card);
         }
 
-        public void SetScore(int score)
-        {
-            PlayerScore = score;
-        }
-
         public int GetScore()
         {
             return PlayerScore;
+        }
+
+        public void SetScore(int score)
+        {
+            PlayerScore = score;
         }
 
         public void ShowCards()
