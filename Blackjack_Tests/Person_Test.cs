@@ -4,7 +4,7 @@ using Blackjack_App;
 
 namespace Blackjack_Test
 {
-    public class Persno_RecieveCard
+    public class Person_RecieveCard
     {
         [Fact]
         public void Receive1Card_AddTheCardToThePlayerList()
@@ -15,20 +15,6 @@ namespace Blackjack_Test
 
             int expected = 1;
             int actual = player.Cards.Count;
-
-            Assert.Equal(expected, actual);
-        }
-    }
-
-    public class Player_ShowCards
-    {
-        [Fact]
-        public void GivenACard_ShowCard()
-        {
-            Card card = new Card(Ranks.Ace, Suits.Diamond);
-
-            string expected = "Ace,Diamond";
-            string actual = $"{card.Rank},{card.Suit}";
 
             Assert.Equal(expected, actual);
         }

@@ -33,14 +33,5 @@ namespace Blackjack_App
         {
             PlayerScore = score;
         }
-
-        public void ShowCards()
-        {
-            Console.WriteLine("with the hand:");
-            foreach (Card card in Cards)
-            {
-                Console.WriteLine($"{card.Rank},{card.Suit}");
-            }
-        }
     }
 }

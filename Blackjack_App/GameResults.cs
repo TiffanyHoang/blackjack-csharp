@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 namespace Blackjack_App
 {
     public class GameResults
@@ -10,44 +11,43 @@ namespace Blackjack_App
             int playerMachineScore = Calculators.BlackjackCalculator(playerMachineCards);
             int dealerScore = Calculators.BlackjackCalculator(dealerCards);
 
+            bool playerHasHighestScore = playerScore > dealerScore && playerScore > playerMachineScore;
+            bool playerHasLowerScore = (playerScore < dealerScore && dealerScore <= 21) || (playerScore < playerMachineScore && playerMachineScore <= 21);
+            bool playerHasSameScore = (playerScore == dealerScore && playerMachineScore > 21) || (playerScore == playerMachineScore && dealerScore > 21);
+
             if (playerScore > 21)
             {
-                Console.WriteLine("Player loses");
                 return Results.Lose;
             }
 
-            if (dealerScore > 21 && playerMachineScore > 21)
+            else if (dealerScore > 21 && playerMachineScore > 21)
             {
-                Console.WriteLine("Player win");
                 return Results.Win;
             }
           
-            if (playerScore > dealerScore && playerScore > playerMachineScore)
+            else if (playerHasHighestScore)
             {
-                Console.WriteLine("Player win");
                 return Results.Win;
             }
 
-            if ((playerScore < dealerScore && dealerScore <= 21) || (playerScore < playerMachineScore && playerMachineScore <= 21))
+            else if (playerHasLowerScore)
             {
-                Console.WriteLine("Player loses");
                 return Results.Lose;
             }
 
-            if ((playerScore == dealerScore && playerMachineScore > 21) || (playerScore == playerMachineScore && dealerScore  > 21))
+            else if (playerHasSameScore)
             {
-                Console.WriteLine("Game is a tie");
+                return Results.Tie;
+            }
+          
+            //Player has blackjack and so does the dealer or machine player
+
+            else if ((playerScore == dealerScore && dealerScore == 21 && dealerCards.Count == 2 && playerCards.Count == 2) || (playerScore == playerMachineScore && playerMachineScore == 21 && playerMachineCards.Count == 2 && playerCards.Count == 2))
+            {
                 return Results.Tie;
             }
 
-            if ((playerScore == dealerScore && dealerScore == 21 && dealerCards.Count == 2 && playerCards.Count == 2) || (playerScore == playerMachineScore && playerMachineScore == 21 && playerMachineCards.Count == 2 && playerCards.Count == 2))
-            {
-                Console.WriteLine("Game is a tie");
-                return Results.Tie;
-            }
-            else
-            {
-                Console.WriteLine("Player win");
+            else {
                 return Results.Win;
             }
 

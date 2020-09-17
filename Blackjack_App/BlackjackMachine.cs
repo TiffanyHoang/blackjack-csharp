@@ -1,6 +1,13 @@
 ﻿using System;
 namespace Blackjack_App
 {
+    /* 
+        @@ Feedback
+
+        This file contains the general workflow of the program as well as quite a bit of logic.
+        It'd be very important to test this so as to document the general workflow of the game.
+        How would you go about testing this file?
+    */
     public class BlackjackMachine
     {
         private Results GameResult { get; set; }
@@ -15,7 +22,32 @@ namespace Blackjack_App
             GameResult = result;
         }
 
+        /* 
+            @@@ Feedback
+
+            1. Normally with the constructor of a class, we don't actually put so much logic into it.
+            For example, we wouldn't trigger the functions "InitialStart", "PlayHumanRound" etc.
+            Typically we just setup the class in the constructor, that means initialising other objects,
+            or setting objects that have been given to the "BlackjackMachine" object.
+
+            2. The "BlackjackMachine" class is a prime target for dependency injection. Dependency injection 
+            is simply the giving of "dependencies" to a class. For example:
+
+            public BlackjackMachine(ICalculator blackjackCalculator) {
+                _blackjackCalculator = blackjackCalculator;
+            }
+
+            As you can see above, instead of us just directly referencing the BlackjackCalculator
+            that exists outside of this file, we "inject" it into this class. This is incredibly
+            useful as it "decouples" implementation.         
+        */
         public BlackjackMachine()
+        {
+            GameResult = BlackjackMachineRun();
+        }
+
+
+        private Results BlackjackMachineRun()
         {
             Console.WriteLine("Welcome to Blackjack Engine! Good Luck!");
 
@@ -24,16 +56,7 @@ namespace Blackjack_App
             Person dealer = new Person("Dealer");
             Person playerMachine = new Person("Machine");
 
-            int initialDealtTimes = 2;
-
-            for (int i = 0; i < initialDealtTimes; i++)
-            {
-                player.AddCard(deck.DealCard());
-
-                playerMachine.AddCard(deck.DealCard());
-
-                dealer.AddCard(deck.DealCard());
-            }
+            GameStart(player, playerMachine, dealer, deck);
 
             InitialStart(player);
             PlayHumanRound(player, deck);
@@ -45,9 +68,42 @@ namespace Blackjack_App
             PlayMachineRound(dealer, deck);
 
             ShowFinalScore(player, playerMachine, dealer);
+
             SetGameResult(GameResults.ReturnResult(player.Cards, playerMachine.Cards, dealer.Cards));
+
+            Results gameResult = GameResults.ReturnResult(player.Cards, playerMachine.Cards, dealer.Cards);
+
+
+            if (gameResult == Results.Lose)
+            {
+                Console.WriteLine("Player loses!");
+            }
+            else if (gameResult == Results.Win)
+            {
+                Console.WriteLine("Player wins!");
+            }
+            else
+            {
+                Console.WriteLine("Player ties!");
+            }
+
+            return gameResult;
         }
 
+        private void GameStart(Person player, Person playerMachine, Person dealer, Deck deck)
+        {
+            int initialDealtTimes = 2;
+
+            for (int i = 0; i < initialDealtTimes; i++)
+            {
+                player.AddCard(deck.DealCard());
+
+                playerMachine.AddCard(deck.DealCard());
+
+                dealer.AddCard(deck.DealCard());
+            }
+
+        }
          private void PlayHumanRound(Person player, Deck deck)
         {
             while (player.GetScore() < 21)
@@ -85,7 +141,9 @@ namespace Blackjack_App
 
             Console.WriteLine("{0} is currently at: {1}", person.PersonType, person.GetScore());
 
-            person.ShowCards();
+            Console.WriteLine("with the hand:");
+
+            ShowCards(person);
         }
 
         private void InitialStart(Person person)
@@ -95,7 +153,9 @@ namespace Blackjack_App
 
             Console.WriteLine("{0} is currently at: {1}", person.PersonType, person.GetScore());
 
-            person.ShowCards();
+            Console.WriteLine("with the hand:");
+
+            ShowCards(person);
         }
 
         private void ShowFinalScore(Person player, Person playerMachine, Person dealer)
@@ -103,6 +163,14 @@ namespace Blackjack_App
             Console.WriteLine("PlayerScore:{0}", player.GetScore());
             Console.WriteLine("MachineScore:{0}", playerMachine.GetScore());
             Console.WriteLine("DealerScore:{0}", dealer.GetScore());
+        }
+
+        private void ShowCards(Person person)
+        {
+            foreach (Card card in person.Cards)
+            {
+                Console.WriteLine($"{card.Rank},{card.Suit}");
+            }
         }
     }
 }
