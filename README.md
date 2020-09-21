@@ -11,7 +11,7 @@ The app is built base on the [Blackjack Kata](https://github.com/MYOB-Technology
 3. If the player (you) goes over 21, player loses (bust)
 4. If everyone else goes bust, player (you) wins
 5. In the event of a tie:
-   -> If someone has blackjack, that person wins
-   -> If multiple people have blackjack, it's a tie
-   -> If no one has blackjack, it's a tie
+   - If someone has blackjack, that person wins
+   - If multiple people have blackjack, it's a tie
+   - If no one has blackjack, it's a tie
 In the scenario of a tie, the player doesn't "win" therefore he must play again.
