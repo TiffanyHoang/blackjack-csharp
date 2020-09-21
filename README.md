@@ -1,7 +1,7 @@
 ﻿# tiffany-kata-blackjack
 The app is built base on the [Blackjack Kata](https://github.com/MYOB-Technology/General_Developer/blob/main/katas/kata-foundational/foundational-kata-blackjack.md) requiremnts.
 
-** There are 2 additional requirements: **
+**There are 2 additional requirements:**
 - If the player looses, player has chances to try again until he wins or he exits the game
 - Second player (machine)- same playing rule as dealer
 
