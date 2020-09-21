@@ -12,16 +12,6 @@ namespace Blackjack_App
     {
         private Results GameResult { get; set; }
 
-        public Results GetGameResult()
-        {
-            return GameResult;
-        }
-
-        private void SetGameResult(Results result)
-        {
-            GameResult = result;
-        }
-
         /* 
             @@@ Feedback
 
@@ -41,13 +31,8 @@ namespace Blackjack_App
             that exists outside of this file, we "inject" it into this class. This is incredibly
             useful as it "decouples" implementation.         
         */
-        public BlackjackMachine()
-        {
-            GameResult = BlackjackMachineRun();
-        }
 
-
-        private Results BlackjackMachineRun()
+        public Results BlackjackMachineRun()
         {
             Console.WriteLine("Welcome to Blackjack Engine! Good Luck!");
 
@@ -69,25 +54,24 @@ namespace Blackjack_App
 
             ShowFinalScore(player, playerMachine, dealer);
 
-            SetGameResult(GameResults.ReturnResult(player.Cards, playerMachine.Cards, dealer.Cards));
-
             Results gameResult = GameResults.ReturnResult(player.Cards, playerMachine.Cards, dealer.Cards);
 
 
             if (gameResult == Results.Lose)
             {
-                Console.WriteLine("Player loses!");
+                Console.WriteLine("Player lose!");
             }
             else if (gameResult == Results.Win)
             {
-                Console.WriteLine("Player wins!");
+                Console.WriteLine("Player win!");
             }
             else
             {
-                Console.WriteLine("Player ties!");
+                Console.WriteLine("Player tie!");
             }
 
             return gameResult;
+
         }
 
         private void GameStart(Person player, Person playerMachine, Person dealer, Deck deck)

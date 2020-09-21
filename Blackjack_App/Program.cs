@@ -8,7 +8,10 @@ namespace Blackjack_App
     {
         static void Main(string[] args)
         {
-            Results gameResult = new BlackjackMachine().GetGameResult();
+
+            BlackjackMachine newGame = new BlackjackMachine();
+
+            Results gameResult = newGame.BlackjackMachineRun();
 
             while (gameResult == Results.Lose || gameResult == Results.Tie)
             {
@@ -18,7 +21,9 @@ namespace Blackjack_App
 
                 if (playerDecision == "y")
                 {
-                    gameResult = new BlackjackMachine().GetGameResult();
+                    newGame = new BlackjackMachine();
+
+                    gameResult = newGame.BlackjackMachineRun(); 
                 }
                 if (playerDecision != "y")
                 {
