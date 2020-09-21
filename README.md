@@ -1,5 +1,5 @@
 ﻿# tiffany-kata-blackjack
-The app is built base on the [Blackjack Kata](https://github.com/MYOB-Technology/General_Developer/blob/main/katas/kata-foundational/foundational-kata-blackjack.md) requiremnts.
+The app is built base on the [Blackjack Kata](https://github.com/MYOB-Technology/General_Developer/blob/main/katas/kata-foundational/foundational-kata-blackjack.md) requirements.
 
 **There are 2 additional requirements:**
 - If the player looses, player has chances to try again until he wins or he exits the game
