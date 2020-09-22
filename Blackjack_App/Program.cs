@@ -8,12 +8,10 @@ namespace Blackjack_App
     {
         static void Main(string[] args)
         {
+            BlackjackMachine game = NewBlackjackGame();
+            Results result = game.run();
 
-            BlackjackMachine newGame = new BlackjackMachine();
-
-            Results gameResult = newGame.BlackjackMachineRun();
-
-            while (gameResult == Results.Lose || gameResult == Results.Tie)
+            while (result == Results.Lose || result == Results.Tie)
             {
                 Console.WriteLine("Do you want to try again? Press y to play again or other key to exit.");
 
@@ -21,9 +19,8 @@ namespace Blackjack_App
 
                 if (playerDecision == "y")
                 {
-                    newGame = new BlackjackMachine();
-
-                    gameResult = newGame.BlackjackMachineRun(); 
+                    game = NewBlackjackGame();
+                    result = game.run(); 
                 }
                 if (playerDecision != "y")
                 {
@@ -34,6 +31,11 @@ namespace Blackjack_App
             }
 
             
+        }
+
+        static BlackjackMachine NewBlackjackGame() {
+            IDeck deck = new Deck();
+            return new BlackjackMachine(deck, Console.ReadLine, Console.WriteLine);
         }
     }
 }

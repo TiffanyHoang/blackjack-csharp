@@ -4,7 +4,11 @@ using System.Linq;
 
 namespace Blackjack_App
 {
-    public class Deck
+    public interface IDeck {
+        public Card DealCard();
+    }
+
+    public class Deck : IDeck
     {
         private readonly List<Card> Cards = new List<Card>();
 

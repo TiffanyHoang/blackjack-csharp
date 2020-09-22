@@ -1,80 +1,63 @@
 ﻿using System;
 namespace Blackjack_App
 {
-    /* 
-        @@ Feedback
-
-        This file contains the general workflow of the program as well as quite a bit of logic.
-        It'd be very important to test this so as to document the general workflow of the game.
-        How would you go about testing this file?
-    */
     public class BlackjackMachine
     {
-        private Results GameResult { get; set; }
+        private IDeck deck { get; }
+        private Person player { get; }
+        private Person dealer { get; }
+        private Person playerMachine { get; }
+        private Action<string> write;
+        // static void Write(string arg){}
 
-        /* 
-            @@@ Feedback
+        private Func<string> read;
+        // static string Read(){}
 
-            1. Normally with the constructor of a class, we don't actually put so much logic into it.
-            For example, we wouldn't trigger the functions "InitialStart", "PlayHumanRound" etc.
-            Typically we just setup the class in the constructor, that means initialising other objects,
-            or setting objects that have been given to the "BlackjackMachine" object.
+        public BlackjackMachine(IDeck _deck, Func<string> _read, Action<string> _write) {
+            deck = _deck;
+            player = new Person("Player");
+            dealer = new Person("Dealer");
+            playerMachine = new Person("Machine");
+            read = _read;
+            write = _write;
+        }
 
-            2. The "BlackjackMachine" class is a prime target for dependency injection. Dependency injection 
-            is simply the giving of "dependencies" to a class. For example:
-
-            public BlackjackMachine(ICalculator blackjackCalculator) {
-                _blackjackCalculator = blackjackCalculator;
-            }
-
-            As you can see above, instead of us just directly referencing the BlackjackCalculator
-            that exists outside of this file, we "inject" it into this class. This is incredibly
-            useful as it "decouples" implementation.         
-        */
-
-        public Results BlackjackMachineRun()
+        public Results run()
         {
-            Console.WriteLine("Welcome to Blackjack Engine! Good Luck!");
+            write("Welcome to Blackjack Engine! Good Luck!");
 
-            Deck deck = new Deck();
-            Person player = new Person("Player");
-            Person dealer = new Person("Dealer");
-            Person playerMachine = new Person("Machine");
+            Start(player, playerMachine, dealer, deck);
 
-            GameStart(player, playerMachine, dealer, deck);
-
-            InitialStart(player);
+            ShowStartingHand(player);
             PlayHumanRound(player, deck);
 
-            InitialStart(playerMachine);
+            ShowStartingHand(playerMachine);
             PlayMachineRound(playerMachine, deck);
 
-            InitialStart(dealer);
+            ShowStartingHand(dealer);
             PlayMachineRound(dealer, deck);
 
             ShowFinalScore(player, playerMachine, dealer);
 
             Results gameResult = GameResults.ReturnResult(player.Cards, playerMachine.Cards, dealer.Cards);
 
-
             if (gameResult == Results.Lose)
             {
-                Console.WriteLine("Player lose!");
+                write("Player lose!");
             }
             else if (gameResult == Results.Win)
             {
-                Console.WriteLine("Player win!");
+                write("Player win!");
             }
             else
             {
-                Console.WriteLine("Player tie!");
+                write("Player tie!");
             }
 
             return gameResult;
-
         }
 
-        private void GameStart(Person player, Person playerMachine, Person dealer, Deck deck)
+        private void Start(Person player, Person playerMachine, Person dealer, IDeck deck)
         {
             int initialDealtTimes = 2;
 
@@ -88,13 +71,13 @@ namespace Blackjack_App
             }
 
         }
-         private void PlayHumanRound(Person player, Deck deck)
+         private void PlayHumanRound(Person player, IDeck deck)
         {
             while (player.GetScore() < 21)
             {
-                Console.WriteLine("Do you want to hit or stay? Press h to hit or other key to stay");
+                write("Do you want to hit or stay? Press h to hit or other key to stay");
 
-                string playerAction = Console.ReadLine();
+                string playerAction = read();
 
                 if (playerAction == "h")
                 {
@@ -103,13 +86,13 @@ namespace Blackjack_App
 
                 if (playerAction != "h")
                 {
-                    Console.WriteLine("You choose to stay");
+                    write("You choose to stay");
                     break;
                 }
             }
         }
 
-        private void PlayMachineRound(Person person, Deck deck)
+        private void PlayMachineRound(Person person, IDeck deck)
         {
             while (person.GetScore() <= 17)
             {
@@ -117,43 +100,43 @@ namespace Blackjack_App
             }
         }
 
-        private void PlayTurn(Person person, Deck deck)
+        private void PlayTurn(Person person, IDeck deck)
         {
             person.AddCard(deck.DealCard());
 
             person.SetScore(Calculators.BlackjackCalculator(person.Cards));
 
-            Console.WriteLine("{0} is currently at: {1}", person.PersonType, person.GetScore());
+            write(String.Format("{0} is currently at: {1}", person.PersonType, person.GetScore()));
 
-            Console.WriteLine("with the hand:");
+            write("with the hand:");
 
             ShowCards(person);
         }
 
-        private void InitialStart(Person person)
+        private void ShowStartingHand(Person person)
         {
             person.SetScore(Calculators.BlackjackCalculator(person.Cards));
             person.GetScore();
 
-            Console.WriteLine("{0} is currently at: {1}", person.PersonType, person.GetScore());
+            write(String.Format("{0} is currently at: {1}", person.PersonType, person.GetScore()));
 
-            Console.WriteLine("with the hand:");
+            write("with the hand:");
 
             ShowCards(person);
         }
 
         private void ShowFinalScore(Person player, Person playerMachine, Person dealer)
         {
-            Console.WriteLine("PlayerScore:{0}", player.GetScore());
-            Console.WriteLine("MachineScore:{0}", playerMachine.GetScore());
-            Console.WriteLine("DealerScore:{0}", dealer.GetScore());
+            write(String.Format("PlayerScore:{0}", player.GetScore()));
+            write(String.Format("MachineScore:{0}", playerMachine.GetScore()));
+            write(String.Format("DealerScore:{0}", dealer.GetScore()));
         }
 
         private void ShowCards(Person person)
         {
             foreach (Card card in person.Cards)
             {
-                Console.WriteLine($"{card.Rank},{card.Suit}");
+                write($"{card.Rank},{card.Suit}");
             }
         }
     }
