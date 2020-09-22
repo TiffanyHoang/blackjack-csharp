@@ -12,8 +12,16 @@ namespace Blackjack_App
             int dealerScore = Calculators.BlackjackCalculator(dealerCards);
 
             bool playerHasHighestScore = playerScore > dealerScore && playerScore > playerMachineScore;
+
             bool playerHasLowerScore = (playerScore < dealerScore && dealerScore <= 21) || (playerScore < playerMachineScore && playerMachineScore <= 21);
+
             bool playerHasSameScore = (playerScore == dealerScore && playerMachineScore > 21) || (playerScore == playerMachineScore && dealerScore > 21);
+
+            bool dealHasBlackjack = dealerScore == 21 && dealerCards.Count == 2;
+
+            bool playerMachineHasBlackjack = playerMachineScore == 21 && playerMachineCards.Count == 2;
+
+            bool playerHasBlackjack = playerScore == 21 && playerCards.Count == 2;
 
             if (playerScore > 21)
             {
@@ -40,9 +48,7 @@ namespace Blackjack_App
                 return Results.Tie;
             }
           
-            //Player has blackjack and so does the dealer or machine player
-
-            else if ((playerScore == dealerScore && dealerScore == 21 && dealerCards.Count == 2 && playerCards.Count == 2) || (playerScore == playerMachineScore && playerMachineScore == 21 && playerMachineCards.Count == 2 && playerCards.Count == 2))
+            else if ((playerHasBlackjack && playerMachineHasBlackjack) || (playerHasBlackjack && dealHasBlackjack))
             {
                 return Results.Tie;
             }
