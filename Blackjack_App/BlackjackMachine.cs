@@ -3,13 +3,15 @@ namespace Blackjack_App
 {
     public class BlackjackMachine
     {
-        private Results GameResult { get; set; }
         private IDeck deck { get; }
         private Person player { get; }
         private Person dealer { get; }
         private Person playerMachine { get; }
         private Action<string> write;
+        // static void Write(string arg){}
+
         private Func<string> read;
+        // static string Read(){}
 
         public BlackjackMachine(IDeck _deck, Func<string> _read, Action<string> _write) {
             deck = _deck;
