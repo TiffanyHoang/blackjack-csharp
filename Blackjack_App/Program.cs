@@ -15,14 +15,14 @@ namespace Blackjack_App
             {
                 Console.WriteLine("Do you want to try again? Press y to play again or other key to exit.");
 
-                string playerDecision = Console.ReadLine();
+                string playerDecision = Console.ReadLine().ToUpper();
 
-                if (playerDecision == "y")
+                if (playerDecision == "Y")
                 {
                     game = NewBlackjackGame();
                     result = game.run(); 
                 }
-                if (playerDecision != "y")
+                if (playerDecision != "Y")
                 {
                     Console.WriteLine("Thank you! See you next time!");
                     break;
